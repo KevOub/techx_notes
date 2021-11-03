@@ -24,25 +24,25 @@
 
 #### Back To Basics
 - The flag is `notencryption`. Below is [cyberchef](https://gchq.github.io/CyberChef/) recipe to decode it. [Base64 Wiki](https://en.wikipedia.org/wiki/Base64)
-- ![[Pasted image 20211027131121.png]]
+- ![[../images/Pasted image 20211027131121.png]]
 
 #### The Barnyard Cryptography
 - [This cipher](https://en.wikipedia.org/wiki/Bacon%27s_cipher) using this [tool](https://www.dcode.fr/bacon-cipher). It decodes to `SPOOKYSEASON`.
 
 #### The è in Encryption
 - This cipher is a [Vigenère cipher](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher). To decode it, use something like cyberchef to get `techx_l@b_rules`
-- ![[Pasted image 20211027131800.png]]
+- ![[../images/Pasted image 20211027131800.png]]
 
 
 #### Nuclear Codes
 - This hash, `482c811da5d5b4bc6d497ffa98491e38`, is a MD5 hash. Use something like `john the ripper` or `hashcat` to crack it. Or use an online tool like [this](https://crackstation.net)
-- ![[Pasted image 20211027132644.png]]
+- ![[../images/Pasted image 20211027132644.png]]
 
 #### The C_xor_nish Rex
 - This one is wacky...
-- ![[Pasted image 20211027132847.png]]
+- ![[../images/Pasted image 20211027132847.png]]
 - The intended way was to mess with cyberchef to get it, but it appears not a lot of people succeeded. Oops.
-- ![[Pasted image 20211027133523.png]]
+- ![[../images/Pasted image 20211027133523.png]]
 - The flag is `#icanhazPDF?`
 - More information on XOR cipher [here](https://en.wikipedia.org/wiki/XOR_cipher) and [here](https://www.101computing.net/xor-encryption-algorithm/)
 
@@ -51,21 +51,21 @@
 
 #### Baby Shark Part One
 This one requires opening the `pcap` in wireshark. You can see the protocol as one of the columns
-![[Pasted image 20211103140052.png]]
+![[../images/Pasted image 20211103140052.png]]
 It is just `FTP`, not `TCP`. Oop if it is guessy
 
 #### Baby Shark Part Two
 This one requires filtering by `ftp` and then searching (using `Ctrl+F`) for the plaintext `user`. Another option is explored in part three.
-![[Pasted image 20211103140315.png]]
+![[../images/Pasted image 20211103140315.png]]
 
 #### Baby Shark Part Three
 This is the hard part. Filter by [FTP codes](https://en.wikipedia.org/wiki/List_of_FTP_server_return_codes) to find the one packet that authenticated. Now, the problem is how can you find the password that authenticated. To do that in wireshark you can follow [the tcp stream](https://www.wireshark.org/docs/wsug_html_chunked/ChAdvFollowStreamSection.html) to find the right password.
 ![](https://lh5.googleusercontent.com/gaN1Lm8LVm1eMALyj0nhJYAinlOQegWu8M-YuWvBXXYEEpU2DDYAHynFGJI03v1PXCsXYzmrieOXTBzfxRz7PwhfCJdPB-Z4JXlaEX7-0xTapI2-9vQjwCQ1Je0XyXtAGCqpOfmH)
-![[Pasted image 20211103140755.png]]
+![[../images/Pasted image 20211103140755.png]]
 
 #### Forensics Cat 
 This cat works for the NSA. In order to solve it, you load a metadata viewer and get the latitude and longitude. I never fixed it so you are ever so slightly not in the NSA head quarters.
-![[Pasted image 20211103140910.png]]
+![[../images/Pasted image 20211103140910.png]]
 
 #### A Window from Eons Ago!
 This is a bad idea manifested into a challenge. It is a *Windows 95* image that has two microsoft paint images. One of which is exported to a `bmp` with the flag. How to get there? The easiest way is to use autopsy or a similar tool to dig through this image. However, what originally I had in mind was have it buried in a VirtualBox image and in order to get the flag you must *boot* Windows 95, read the registry dump stored on the Desktop, and look for recently modified microsoft paint files. 
@@ -78,27 +78,27 @@ Look up a write up for Project Euler 14 ([like this one](https://lucidmanager.or
 
 #### Nuclear Codes V2
 This is a `sha256` that can be easily cracked using crackstation. It is just `powerzone`
-![[Pasted image 20211103141121.png]]
+![[../images/Pasted image 20211103141121.png]]
 
 ---
 ### Week 4: Bigfoot's Broken Bank App
 
 ##### Flag 1
 - The first step is bad and guessy. You have to know about the web-application file `robots.txt`
-- ![[Pasted image 20211027163015.png]]
+- ![[../images/Pasted image 20211027163015.png]]
 - That hint on the homepage was supposed you to read about it plus the hint I gave from the announcements
-- ![[Pasted image 20211027163121.png]]
+- ![[../images/Pasted image 20211027163121.png]]
 
 #### Flag 2
 - Goto `robots.txt` to get the next hidden layer, 
-- ![[Pasted image 20211027163224.png]]
+- ![[../images/Pasted image 20211027163224.png]]
 - And be told you are not admin
 - The *mean* way I had it before I removed it was there was a [TOTP code generator](https://en.wikipedia.org/wiki/Time-based_One-Time_Password) similar to that of Google Authenticator and you had to extract the valid TOTP secret key to make a valid cookie every 60 seconds
 	- To derive the TOTP secret key, I would have hidden in the source code
 - Instead, check the cookie
-- ![[Pasted image 20211027163556.png]]
+- ![[../images/Pasted image 20211027163556.png]]
 - It is `base64`
-- ![[Pasted image 20211027163654.png]]
+- ![[../images/Pasted image 20211027163654.png]]
 - Haha! change the b64 message to say you are admin
 ```python
         # sets cookie if blank
@@ -120,7 +120,7 @@ This is a `sha256` that can be easily cracked using crackstation. It is just `po
         return resp 
 ```
 - How can you bypass this? set the cookie to equal anything besides `False` and then it will give you the next page
-- ![[Pasted image 20211027164006.png]]
+- ![[../images/Pasted image 20211027164006.png]]
 
 #### Flag 3
 - This is the point where difficulty shoots up because reasons
